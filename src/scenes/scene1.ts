@@ -1,5 +1,6 @@
 import { RotatorSystem, Cube, Mouse } from '../gameObjects/index';
 import { LerpData, LerpMove } from '../modules/follow';
+import resources from '../resources';
 
 export function CreateScene1(): void {
 	//sahnedeki tüm objeleri sürekli olarak döndüren sistemi ekledik
@@ -22,11 +23,18 @@ export function CreateScene1(): void {
 	//Spawn a mouse
 	const mouse = new Mouse({
 		position: new Vector3(6,0,6),
-		scale: new Vector3(1,1,1)
+		scale: new Vector3(3,3,3)
 	})
 
 	//follow sistemini ekliyorum
 	engine.addSystem(new LerpMove())
 
 	mouse.addComponent(new LerpData())
+
+	const mouseWill = new Mouse({
+		position: new Vector3(2,0,2),
+		scale: new Vector3(2,2,2)
+	}, resources.models.mouseWill)
+	
+	mouseWill.addComponent(new LerpData(7500))
 }

@@ -1,11 +1,11 @@
 import resources from "../resources"
 
 export class Mouse extends Entity {
-	constructor(transform: TranformConstructorArgs){
+	constructor(transform: TranformConstructorArgs, model: GLTFShape = resources.models.mouse){
 		super()
 		engine.addEntity(this)
 
-		this.addComponent(resources.models.mouse)
+		this.addComponent(model)
 		//this.addComponent(new BoxShape())
 		this.addComponent(new Transform(transform))
 

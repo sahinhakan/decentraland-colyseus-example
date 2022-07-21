@@ -3,7 +3,8 @@ export default {
 
 	},
 	models: {
-		mouse: new GLTFShape("models/Mouse.glb")
+		mouse: new GLTFShape("models/Mouse.glb"),
+		mouseWill: new GLTFShape("models/MouseWill.glb")
 	},
 	textures: {
 

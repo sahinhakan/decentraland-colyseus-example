@@ -3,15 +3,20 @@ export class LerpData {
   target: Vector3 = Vector3.Zero()
   origin: Vector3 = Vector3.Zero()
   fraction: number = 0
+  fractionIterator: number = 1 / 15000
+
+  constructor(iterator?: number){
+	if(iterator)
+		this.fractionIterator =  1 /iterator
+  }
 }
 
 const camera = Camera.instance
-//const followers = engine.getComponentGroup(LerpData)
+const followers = engine.getComponentGroup(LerpData)
 
 export class LerpMove implements ISystem {
 	update(dt: number){
-		log("Follow->update dt: ", dt)
-		const followers = engine.getComponentGroup(LerpData)
+		//log("Follow->update dt: ", dt)
 		for(const follower of followers.entities){
 			const transform = follower.getComponent(Transform)
 			const walk = follower.getComponent(LerpData)
@@ -28,7 +33,7 @@ export class LerpMove implements ISystem {
 					walk.target,
 					walk.fraction
 				)
-				walk.fraction += 1 / 15000
+				walk.fraction += walk.fractionIterator
 			}else {
 				walk.fraction = 0
 			}
