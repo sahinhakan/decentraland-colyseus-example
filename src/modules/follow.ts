@@ -6,6 +6,7 @@ export class LerpData {
 }
 
 const camera = Camera.instance
+//const followers = engine.getComponentGroup(LerpData)
 
 export class LerpMove implements ISystem {
 	update(dt: number){
