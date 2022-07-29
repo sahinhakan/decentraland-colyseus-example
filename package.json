@@ -21,6 +21,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
+    "colyseus.js": "^0.14.13",
     "decentraland": "^3.11.0"
   }
 }
