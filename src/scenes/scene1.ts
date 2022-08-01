@@ -23,11 +23,11 @@ export function CreateScene1(): void {
 	}, resources.models.mouseWill)
 	mouseWill.addComponent(new LerpData(7500))
 
-  //create messagebus
-  const sceneMessageBus = new MessageBus()
-  sceneMessageBus.on('createCube', (e) => {
-    new Cube(e.x * 8 + 1, e.y * 8, e.z * 8 + 1)
-  })
+	//create messagebus
+	const sceneMessageBus = new MessageBus()
+	sceneMessageBus.on('createCube', (e) => {
+		new Cube(e.x * 8 + 1, e.y * 8, e.z * 8 + 1)
+	})
 
 	/// --- Spawn a cube ---
 	const cube = new Cube(8,1,8)
@@ -37,7 +37,7 @@ export function CreateScene1(): void {
 			const x : number = Math.random()
 			const y : number = Math.random()
 			const z : number = Math.random()
-      sceneMessageBus.emit('createCube', {x, y, z})
+      		sceneMessageBus.emit('createCube', {x, y, z})
 			//new Cube(Math.random() * 8 + 1, Math.random() * 8, Math.random() * 8 + 1)
 		})
 	)
