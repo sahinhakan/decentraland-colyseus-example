@@ -1,10 +1,12 @@
 import { Room, Client } from "colyseus";
 import { MyRoomState, Player } from "./schema/MyRoomState";
+import { allPlayers, saveAllPlayers } from './MyRoomData'
 
 export class MyRoom extends Room<MyRoomState> {
 
   onCreate (options: any) {
-    this.setState(new MyRoomState());
+    this.setState(new MyRoomState(8, allPlayers));
+    //this.setState(new MyRoomState());
 
     this.onMessage('pickColor', (client, message) => {
       const player = this.state.players.get(client.sessionId)
@@ -33,8 +35,13 @@ export class MyRoom extends Room<MyRoomState> {
       options.userData.displayName || 'Anonymous'
     )
     this.state.players.set(client.sessionId, newPlayer)
+    this.state.allPlayers.set(client.sessionId, newPlayer)
     console.log(newPlayer.name, 'joined! => ', options.userData)
-    console.log('Client: ', client)
+    //console.log('Client: ', client)
+    console.log('-------------------------------------------------')
+    console.log('----ALL PLAYERS----')
+    //Array.from(this.state.allPlayers.values()).map((player: any, i: number) => `${i+1}. ${player.id} ${player.name} ${player.color}`)
+    Array.from(this.state.allPlayers.values()).forEach((player: any, i: number) => console.log(`${i+1}. ${player.id} ${player.name} ${player.color}`))
     console.log('-------------------------------------------------')
 
   }
@@ -45,11 +52,21 @@ export class MyRoom extends Room<MyRoomState> {
     console.log(client.sessionId, "left!")
 
     this.state.players.delete(client.sessionId)
-    //eğer delete etmezsek de odada kimse kalmayınca dispose olur mu?
+    //eğer delete etmezsek de odada kimse kalmayınca dispose olur mu? Evet bence yine de dispose olur. Çünkü dispose olması için bir logic yazmıyoruz.
+    //demekki bağlı client kalmayınca kendisi dispose ediyor.
   }
 
   onDispose() {
     console.log("room", this.roomId, "disposing...");
+    saveAllPlayers(this.state.allPlayers)
+    /* console.log('----SAVING ALL PLAYERS----')
+    Array.from(this.state.allPlayers.values()).forEach((player: any, i: number) => console.log(`${i+1}. ${player.id} ${player.name} ${player.color}`))
+    console.log('--------------------------')
+    saveAllPlayers(this.state.allPlayers)
+    console.log('----SAVED ALL PLAYERS----')
+    Array.from(allPlayers.values()).forEach((player: any, i: number) => console.log(`${i+1}. ${player.id} ${player.name} ${player.color}`))
+    console.log('--------------------------') */
+
   }
 
 }

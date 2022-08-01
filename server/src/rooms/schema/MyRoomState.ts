@@ -37,10 +37,14 @@ export class Cube extends Schema {
 export class MyRoomState extends Schema{
   @type([Cube]) cubes = new ArraySchema<Cube>()
   @type({ map: Player}) players = new MapSchema<Player>()
-  constructor(cubeCount: number = 8){
+  @type({ map: Player}) allPlayers = new MapSchema<Player>()
+  constructor(cubeCount: number = 8, allPlayers?: MapSchema<Player>){
     super()
     for(let i=0; i< cubeCount; i++){
       this.cubes.push(new Cube(i))
+    }
+    if(allPlayers){
+      this.allPlayers = allPlayers.clone()
     }
   }
 }
