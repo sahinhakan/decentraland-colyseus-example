@@ -3,6 +3,7 @@ import { LerpData, LerpMove } from '../modules/follow';
 import resources from '../resources';
 import { getCurrentRealm } from '@decentraland/EnvironmentAPI'
 import { connect } from '../connection'
+import { updateAllPlayersUI } from '../ui/allPlayers'
 
 export function CreateScene2(): void {
 
@@ -33,6 +34,8 @@ export function CreateScene2(): void {
 		scale: new Vector3(2,2,2)
 	}, resources.models.mouseWill)
 	mouseWill.addComponent(new LerpData(7500))
+
+	//updateLeaderboard(["Hakan", "Mehmet"])
 
 	connect('my_room').then((room)=>{
 
@@ -74,6 +77,15 @@ export function CreateScene2(): void {
 			cubes[cubeData.id].activate(value)
 			
 		  })
+		}
+
+		room.state.allPlayers.onAdd = (player: any) => {
+			refreshAllPlayerUI()
+		}
+
+		function refreshAllPlayerUI(){
+			const allPlayers = Array.from(room.state.allPlayers.values()).map((player: any, i: number) => `${i+1}. ${player.name}`)
+			updateAllPlayersUI(allPlayers);
 		}
 	  
 	})
