@@ -74,7 +74,8 @@ export class MyRoom extends Room<MyRoomState> {
 
   saveToMongo(userData: any) {
     //mongoose.connect('mongodb://localhost:27017/room1');
-    const url = "mongodb+srv://hakan:hakan123@cluster0.ezftf.mongodb.net/colyseus?retryWrites=true&w=majority"
+    const url = process.env.DB_URL
+    console.log("DB_URL", process.env.DB_URL)
 
     mongoose
     .connect(url)

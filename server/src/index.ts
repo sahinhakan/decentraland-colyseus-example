@@ -6,6 +6,9 @@
  * If you're self-hosting (without Arena), you can manually instantiate a
  * Colyseus Server as documented here: 👉 https://docs.colyseus.io/server/api/#constructor-options 
  */
+import dotenv from "dotenv";
+dotenv.config();
+
 import { listen } from "@colyseus/arena";
 
 // Import arena config
@@ -13,3 +16,5 @@ import arenaConfig from "./arena.config";
 
 // Create and listen on 2567 (or PORT environment variable.)
 listen(arenaConfig);
+
+console.log("DB_URL", process.env.DB_URL)
