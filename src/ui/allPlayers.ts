@@ -8,6 +8,7 @@ allPlayersBackground2.height = 200;
 allPlayersBackground2.backgroundColor = Color4.Black()
 allPlayersBackground2.opacity = 0.5;
 allPlayersBackground2.isVertical = true
+allPlayersBackground2.vAlign = "bottom"
 //allPlayersBackground2.isHorizontal = true
 
 /* const allPlayersBackground = new UIContainerRect(uiCanvas)

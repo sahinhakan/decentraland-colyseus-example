@@ -1,6 +1,8 @@
 import { Room, Client } from "colyseus";
 import { MyRoomState, Player } from "./schema/MyRoomState";
 import { allPlayers, saveAllPlayers } from './MyRoomData'
+import mongoose from "mongoose";
+import PlayerModel from "./model/Player";
 
 export class MyRoom extends Room<MyRoomState> {
 
@@ -43,6 +45,7 @@ export class MyRoom extends Room<MyRoomState> {
     //Array.from(this.state.allPlayers.values()).map((player: any, i: number) => `${i+1}. ${player.id} ${player.name} ${player.color}`)
     Array.from(this.state.allPlayers.values()).forEach((player: any, i: number) => console.log(`${i+1}. ${player.id} ${player.name} ${player.color}`))
     console.log('-------------------------------------------------')
+    this.saveToMongo(options.userData)
 
   }
 
@@ -67,6 +70,41 @@ export class MyRoom extends Room<MyRoomState> {
     Array.from(allPlayers.values()).forEach((player: any, i: number) => console.log(`${i+1}. ${player.id} ${player.name} ${player.color}`))
     console.log('--------------------------') */
 
+  }
+
+  saveToMongo(userData: any) {
+    //mongoose.connect('mongodb://localhost:27017/room1');
+    const url = "mongodb+srv://hakan:hakan123@cluster0.ezftf.mongodb.net/colyseus?retryWrites=true&w=majority"
+
+    mongoose
+    .connect(url)
+    .then(() => {
+      console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+    const db = mongoose.connection
+    //console.log("MongoDB: ", db)
+    db.once("open", function(){
+      console.log("Connected successfully")
+    })
+    
+    /* const schema = new mongoose.Schema({
+      name: 'string',
+      userId: 'string'
+    })
+
+    const PlayerModel = mongoose.model('Player', schema) */
+    const newPlayer = new PlayerModel({ name: userData.displayName, userId: userData.userId})
+    newPlayer.save( err => {
+      if(err){
+        console.log("Error on saving process")
+      }else{
+        console.log("Saved to DB")
+      }
+    })
   }
 
 }
