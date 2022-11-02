@@ -23,7 +23,7 @@
   "dependencies": {
     "@dcl/ecs-scene-utils": "^1.7.5",
     "colyseus.js": "^0.14.13",
-    "decentraland": "^3.11.0"
+    "decentraland": "^3.12.3"
   },
   "bundleDependencies": [
     "@dcl/ecs-scene-utils",
