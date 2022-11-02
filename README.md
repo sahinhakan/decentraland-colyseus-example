@@ -11,6 +11,18 @@ Download and install the Decentraland CLI by running the following command:
 ```bash
 npm i -g decentraland
 ```
+**Install packages**
+
+```bash
+npm i
+```
+
+**Install Colyseus Server packages**
+
+```bash
+cd server
+npm i
+```
 
 **Previewing the scene**
 
