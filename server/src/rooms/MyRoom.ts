@@ -25,7 +25,7 @@ export class MyRoom extends Room<MyRoomState> {
           cube.color = player.color
         }
       })
-      console.log(player.name, ' changed ', message.id, " to ", player.color)
+      console.log(player.name, ' changed cube index ', message.id, " to color", player.color)
     })
 
   }
